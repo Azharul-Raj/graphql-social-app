@@ -12,7 +12,7 @@ datasource db {
 
 model Post {
   id        Int      @id @default(autoincrement())
-  authorId  Int      @unique
+  authorId  Int      
   title     String
   content   String
   published Boolean  @default(false)

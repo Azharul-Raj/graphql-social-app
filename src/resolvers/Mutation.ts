@@ -16,7 +16,6 @@ export const Mutation={
                post:null
             }
         }
-        console.log('Inside here')
        const post=await prisma.post.create({
             data:{
                 title,
@@ -24,7 +23,6 @@ export const Mutation={
                 authorId:1
             }
         })
-        console.log('undernith the post')
             return{
                 userErrors:[],
                 post
