@@ -1,0 +1,25 @@
+import { PrismaClient,Prisma, Post } from "@prisma/client"
+import { DefaultArgs } from "@prisma/client/runtime"
+
+export interface ContextType{
+    prisma:PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation, DefaultArgs>
+}
+
+export interface PostProps{
+    title:string;
+    content:string;
+}
+
+export interface UserProps{
+    name:string;
+    email:string;
+    password:string;
+}
+// post payload type
+
+export interface PostPayloadType{
+    userErrors:{
+        message:string;
+    }[]
+    post:Post |null;
+}
