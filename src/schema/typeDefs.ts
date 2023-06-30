@@ -37,6 +37,12 @@ type PostPayload{
     message:String
     success:Boolean
 }
+type UserPayload{
+    userErrors:[UserError!]!
+    token:String,
+    message:String
+    success:Boolean
+}
 # input type
 input PostInput{
     title:String
@@ -47,7 +53,8 @@ type Mutation{
     createPost(data:PostInput!):PostPayload!
     updatePost(postId:ID!,data:PostInput!):PostPayload!
     deletePost(postId:ID!):PostPayload!
-    createUser(name:String!,email:String!,password:String!,bio:String!):User
+    singUpUser(name:String!,email:String!,password:String!,bio:String!):UserPayload!
+    singInUser(email:String!,password:String!):UserPayload!
 }
 `
 export default typeDefs;

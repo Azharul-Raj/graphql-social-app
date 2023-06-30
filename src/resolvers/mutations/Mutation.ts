@@ -12,7 +12,8 @@ export const Mutation={
     //delete user mutation
     deletePost:postMutation.deletePostMutation,
     // user creation mutation
-    createUser:userMutations.singUp,
-    //update user
+    singUpUser:userMutations.singUp,
+    //userLogin
+    singInUser:userMutations.singIn
    
 }

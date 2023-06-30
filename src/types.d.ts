@@ -33,3 +33,16 @@ export interface PostPayloadType {
   message?:string
   success?:boolean
 }
+
+export interface UserPayloadType {
+  userErrors: {
+    message: string;
+  }[];
+  token: string | null;
+  message?:string
+  success?:boolean
+}
+
+/**
+ * NORMAL TYPES THAT ARE NOT EXPORTED
+ */
