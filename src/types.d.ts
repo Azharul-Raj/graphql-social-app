@@ -20,6 +20,7 @@ export interface PostProps {
 export interface UserProps {
   name: string;
   email: string;
+  bio:string;
   password: string;
 }
 // post payload type

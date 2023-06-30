@@ -47,7 +47,7 @@ type Mutation{
     createPost(data:PostInput!):PostPayload!
     updatePost(postId:ID!,data:PostInput!):PostPayload!
     deletePost(postId:ID!):PostPayload!
-    createUser(name:String!,email:String!,password:String!):User
+    createUser(name:String!,email:String!,password:String!,bio:String!):User
 }
 `
 export default typeDefs;

@@ -1,13 +1,13 @@
-import { ContextType, PostProps, UserProps,PostPayloadType } from "types";
+import { ContextType, PostProps, PostPayloadType } from "types";
 
 
 interface UpdatePostProps extends PostProps{
     postId:string;
 }
 
-
-export const Mutation={
-    createPost:async(_:any,{data}:PostProps,{prisma}:ContextType):Promise<PostPayloadType> =>{
+export const postMutation={
+    // CREATE POST MUTATION
+    createPostMutation:async(_:any,{data}:PostProps,{prisma}:ContextType):Promise<PostPayloadType> =>{
         const {title,content}=data;
         if(!title || !content){
             return {
@@ -31,7 +31,8 @@ export const Mutation={
                 post
             }        
     },
-    updatePost:async(_:any,{postId,data}:UpdatePostProps,{prisma}:ContextType):Promise<PostPayloadType> =>{
+    //UPDATE POST MUTATION
+    updatePostMutation:async(_:any,{postId,data}:UpdatePostProps,{prisma}:ContextType):Promise<PostPayloadType> =>{
         const isExist=await prisma.post.findUnique({where:{id:Number(postId)}});
         if(!isExist){
             return {
@@ -56,8 +57,8 @@ export const Mutation={
             post
         }
     },
-    //delete user mutation
-    deletePost:async(_:any,{postId}:{postId:string},{prisma}:ContextType):Promise<PostPayloadType> =>{
+    //DELETE POST MUTATION
+    deletePostMutation:async(_:any,{postId}:{postId:string},{prisma}:ContextType):Promise<PostPayloadType> =>{
         const isExist=await prisma.post.findUnique({where:{id:Number(postId)}});
         if(!isExist){
             return {
@@ -82,16 +83,4 @@ export const Mutation={
             success:true
         }
     },
-    // user creation mutation
-    createUser:async(_:any,{name,email,password}:UserProps,{prisma}:ContextType)=>{
-        prisma.user.create({
-            data:{
-                name,
-                email,
-                password
-            }
-        })
-    },
-    //update user
-   
 }
