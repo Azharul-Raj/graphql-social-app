@@ -19,7 +19,7 @@ type Profile{
 }
 
 type Post{
-    id:ID!
+    id:Int!
     title:String!
     content:String!
     createdAt:String!
@@ -33,11 +33,20 @@ type UserError{
 
 type PostPayload{
     userErrors:[UserError!]!
-    post:Post
+    post:Post,
+    message:String
+    success:Boolean
+}
+# input type
+input PostInput{
+    title:String
+    content:String
 }
 # Mutation Schema here
 type Mutation{
-    createPost(title:String!,content:String!):PostPayload!
+    createPost(data:PostInput!):PostPayload!
+    updatePost(postId:ID!,data:PostInput!):PostPayload!
+    deletePost(postId:ID!):PostPayload!
     createUser(name:String!,email:String!,password:String!):User
 }
 `
