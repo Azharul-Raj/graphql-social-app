@@ -7,7 +7,8 @@ interface UpdatePostProps extends PostProps{
 
 export const postMutation={
     // CREATE POST MUTATION
-    createPostMutation:async(_:any,{data}:PostProps,{prisma}:ContextType):Promise<PostPayloadType> =>{
+    createPostMutation:async(_:any,{data}:PostProps,{prisma,headerInfo}:ContextType):Promise<PostPayloadType> =>{
+        console.log(headerInfo)
         const {title,content}=data;
         if(!title || !content){
             return {
@@ -23,7 +24,7 @@ export const postMutation={
             data:{
                 title,
                 content,
-                authorId:1
+                authorId:Number(headerInfo.userId)
             }
         })
             return{

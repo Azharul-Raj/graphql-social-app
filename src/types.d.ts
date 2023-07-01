@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma, Post } from "@prisma/client";
+import { PrismaClient, Prisma, Post, Profile } from "@prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime";
 
 export interface ContextType {
@@ -8,6 +8,9 @@ export interface ContextType {
     Prisma.RejectOnNotFound | Prisma.RejectPerOperation,
     DefaultArgs
   >;
+  headerInfo:{
+    userId:string;
+  }
 }
 
 export interface PostProps {
@@ -33,6 +36,11 @@ export interface PostPayloadType {
   message?:string
   success?:boolean
 }
+//post query payload
+
+interface PostQueryPayload extends Omit<PostPayloadType,"post">{
+  posts:Post[]    
+}
 
 export interface UserPayloadType {
   userErrors: {
@@ -43,6 +51,19 @@ export interface UserPayloadType {
   success?:boolean
 }
 
+export type headerInfo={
+  userId:string;
+  email:string;
+}
+
+//
+export interface UserDetails{
+  id:string;
+name:string
+email:string
+posts:Post[]
+profile?:Profile
+}
 /**
  * NORMAL TYPES THAT ARE NOT EXPORTED
  */
