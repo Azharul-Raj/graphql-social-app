@@ -1,4 +1,6 @@
 import { gql } from "apollo-server";
+
+
 const typeDefs=gql`
 type Query{
     posts:[Post!]   
@@ -22,8 +24,9 @@ type Profile{
 type Post{
     id:Int!
     title:String!
+    authorId:Int!
     content:String!
-    createdAt:String!
+    updatedAt:String!
     published:Boolean
     user:User
 }
@@ -56,6 +59,7 @@ type UserPayload{
 input PostInput{
     title:String
     content:String
+    published:Boolean
 }
 # Mutation Schema here
 type Mutation{
