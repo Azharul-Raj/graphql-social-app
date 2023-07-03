@@ -1,4 +1,5 @@
 import { ContextType, PostProps, PostPayloadType } from "types";
+import getResponseData from '../../../utils/getResponseData'
 
 
 interface UpdatePostProps extends PostProps{
@@ -8,17 +9,12 @@ interface UpdatePostProps extends PostProps{
 export const postMutation={
     // CREATE POST MUTATION
     createPostMutation:async(_:any,{data}:PostProps,{prisma,headerInfo}:ContextType):Promise<PostPayloadType> =>{
-        console.log(headerInfo)
+        if(!headerInfo){
+            return (getResponseData("You are not authenticated yet.",null));
+        }
         const {title,content}=data;
         if(!title || !content){
-            return {
-               userErrors:[
-                {
-                    message:"You must provide a title and content to create a post."
-                }
-               ],
-               post:null
-            }
+            return (getResponseData("You must provide post title && content",null))
         }
        const post=await prisma.post.create({
             data:{
@@ -33,7 +29,8 @@ export const postMutation={
             }        
     },
     //UPDATE POST MUTATION
-    updatePostMutation:async(_:any,{postId,data}:UpdatePostProps,{prisma}:ContextType):Promise<PostPayloadType> =>{
+    updatePostMutation:async(_:any,{postId,data}:UpdatePostProps,{prisma,headerInfo}:ContextType):Promise<PostPayloadType> =>{
+        
         const isExist=await prisma.post.findUnique({where:{id:Number(postId)}});
         if(!isExist){
             return {
@@ -80,8 +77,7 @@ export const postMutation={
         return{
             userErrors:[{message:""}],
             post,
-            message:"Post deleted successfully.",
-            success:true
+            message:"Post deleted successfully."
         }
     },
 }

@@ -1,4 +1,4 @@
-import { ContextType, PostPayloadType, PostQueryPayload, UserDetails } from "types";
+import { ContextType,PostQueryPayload, UserDetails } from "types";
 
 
 export const Query={
@@ -8,7 +8,6 @@ export const Query={
     },
     // post of current user
     postsOfUser:async(_:any,__:any,{prisma,headerInfo}:ContextType):Promise<PostQueryPayload> =>{
-        console.log(headerInfo)
         if(!headerInfo){
             return{
                 userErrors:[{message:"Invalid credentials."}],

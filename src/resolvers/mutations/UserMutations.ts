@@ -51,7 +51,7 @@ export const userMutations={
                 password:hashedPassword
             }
         })
-        const token=Jwt.sign({userId:user.id,email},process.env.SECRET,{expiresIn:"1h"})
+        const token=Jwt.sign({userId:user.id},process.env.SECRET,{expiresIn:"1h"})
         // PROFILE CREATING PART
         await prisma.profile.create({
             data:{
@@ -65,8 +65,7 @@ export const userMutations={
              }
         },
     //LOGIN MUTATION
-    singIn:async(_:any,{email,password}:UserProps,{prisma, headerInfo}:ContextType):Promise<UserPayloadType> =>{
-        console.log(headerInfo)
+    singIn:async(_:any,{email,password}:UserProps,{prisma}:ContextType):Promise<UserPayloadType> =>{
         const user=await prisma.user.findUnique({where:{email}});
         if(!user){
             return{

@@ -16,7 +16,7 @@ import { ContextType } from "types";
 //     }
 //  }
 
-const prisma=new PrismaClient()
+export const prisma=new PrismaClient()
 
 const server=new ApolloServer(
     {
@@ -28,7 +28,7 @@ const server=new ApolloServer(
                 prisma,
                 headerInfo:authorization
             }
-        }
+        },
     })
 
 server.listen().then(({url})=>{
