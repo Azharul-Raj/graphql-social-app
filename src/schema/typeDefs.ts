@@ -4,7 +4,8 @@ import { gql } from "apollo-server";
 const typeDefs=gql`
 type Query{
     posts:[Post!]   
-    postsOfUser:PostQueryPayload! 
+    postsOfUser:PostQueryPayload!
+    profile(userId:ID!):Profile!
 }
 
 type User{
@@ -19,6 +20,7 @@ type Profile{
     id:ID!
     bio:String!
     user:User!
+    posts:[Post!]
 }
 
 type Post{
@@ -67,7 +69,8 @@ type Mutation{
     updatePost(postId:ID!,data:PostInput!):PostPayload!
     deletePost(postId:ID!):PostPayload!
     singUpUser(name:String!,email:String!,password:String!,bio:String!):UserPayload!
-    singInUser(email:String!,password:String!):UserPayload!
+    singInUser(email:String!,password:String!):UserPayload!,
+
 }
 `
 export default typeDefs;

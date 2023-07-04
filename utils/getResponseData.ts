@@ -4,7 +4,7 @@ import { PostPayloadType } from "types";
 type GetResponseDataType=(
     errorMessage:string|null,
     post:Post|null,
-    successMessage?:string
+    successMessage?:string,
 )=>PostPayloadType
  
 

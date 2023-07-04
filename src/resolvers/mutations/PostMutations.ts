@@ -33,7 +33,7 @@ export const postMutation={
     updatePostMutation:async(_:any,{postId,data}:UpdatePostProps,{prisma,headerInfo}:ContextType):Promise<PostPayloadType> =>{
         // HEADER CHECKING
         if(!headerInfo){
-            return (getResponseData("You are not authenticated to do any mutation.",null));
+            return (getResponseData("You are not authenticated to do any mutation.",null,null));
         }
         //CHECK IF THE POST BELONGS TO USER.
         const requestedPost=await prisma.post.findUnique({where:{id:Number(postId)}});
