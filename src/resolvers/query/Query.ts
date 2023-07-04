@@ -1,4 +1,4 @@
-import { ContextType,PostQueryPayload, UserDetails } from "types";
+import { ContextType,PostQueryPayload } from "types";
 
 
 export const Query={
