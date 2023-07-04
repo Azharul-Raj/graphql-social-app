@@ -1,6 +1,6 @@
 import { Mutation } from "./mutations/Mutation";
-import { Query } from "./Query";
-import { Profile } from "./Profile";
+import { Query } from "./query/Query";
+import { Profile } from "./query/Profile";
 
 const resolvers={
     Query,

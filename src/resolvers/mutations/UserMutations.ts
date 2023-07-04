@@ -3,6 +3,7 @@ import Jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 
 import { ContextType, UserPayloadType,  UserProps} from "types";
+import getUserResponseData from '../../../utils/getUserResponseData';
 
 export const userMutations={
     // SIGNUP MUTATION
@@ -11,36 +12,15 @@ export const userMutations={
         // const isValidPassword=validator.isStrongPassword(password,{minLength:5});
         const isValidPassword=validator.isLength(password,{min:5});
         if(!isValidEmail){
-            return {
-                userErrors:[
-                 {
-                     message:"Please provide a valid email."
-                 }
-                ],
-                token:null
-             }
+            return (getUserResponseData("Please provide a valid email.",null))
         }
         //
         if(!isValidPassword){
-            return {
-                userErrors:[
-                 {
-                     message:"Password length must be at least 5 character."
-                 }
-                ],
-                token:null
-             }
+            return (getUserResponseData("Password length must be at least 5 character.",null))
         }
         //
         if(!name || !bio){
-            return {
-                userErrors:[
-                 {
-                     message:"Name and bio can't be empty."
-                 }
-                ],
-                token:null
-             }
+            return (getUserResponseData("Name and bio can't be empty.",null))
         }
         const hashedPassword=bcrypt.hashSync(password,10)
         console.log(hashedPassword )
@@ -59,33 +39,20 @@ export const userMutations={
                 userId:user.id
             }
         })
-            return {
-                userErrors:[{message:""}],
-                token
-             }
+            return (getUserResponseData("",token))
         },
     //LOGIN MUTATION
     singIn:async(_:any,{email,password}:UserProps,{prisma}:ContextType):Promise<UserPayloadType> =>{
         const user=await prisma.user.findUnique({where:{email}});
         if(!user){
-            return{
-                userErrors:[{message:"No Account found with this credential. Please provide right credential to login."}],
-                token:null
-            }
+            return (getUserResponseData("No Account found with this credential. Please provide right credential to login.",null))
         }
         const isValidPassword=bcrypt.compareSync(password,user.password);
         if(!isValidPassword){
-            return{
-                userErrors:[{message:"Email or password is invalid."}],
-                token:null
-            }
+            return (getUserResponseData("Email or password is invalid.",null))
         }
         const token=Jwt.sign({userId:user.id},process.env.SECRET,{expiresIn:"1d"})
-        return{
-            userErrors:[],
-            token,
-            message:"SignIn successful."
-        }
+        return (getUserResponseData("",token,"login successful."))
     }
     }
     
